@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes & Grades - FunSheets</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        .page-header {
+            background-color: var(--color-primary);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <fun-header></fun-header>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>Pick Your Grade</h1>
+            <p style="font-size: 1.2rem; font-weight: 700; opacity: 0.9;">Adventures await in every class</p>
+        </div>
+    </div>
+
+    <!-- Categories Section -->
+    <section class="section">
+        <div class="container">
+            <div class="grid grid-cols-4" style="gap: 24px;">
+                <!-- Category 1 -->
+                <a href="worksheets.html?class=kg" class="card category-card" style="border-bottom-color: var(--color-red);">
+                    <div class="category-icon" style="background-color: #FFE4E6; border-radius: 50%; border: 2px solid var(--color-red); overflow: hidden; padding: 10px;">
+                        <img src="assets/subject_english.png" alt="KG" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <h3 style="color: var(--color-text-main);">Kindergarten</h3>
+                    <p style="color: var(--color-text-muted); font-weight: bold;">KG1 & KG2</p>
+                </a>
+
+                <!-- Category 2 -->
+                <a href="worksheets.html?class=1st-2nd" class="card category-card" style="border-bottom-color: var(--color-primary);">
+                    <div class="category-icon" style="background-color: #E0F2FE; border-radius: 50%; border: 2px solid var(--color-primary); overflow: hidden; padding: 10px;">
+                        <img src="assets/subject_math.png" alt="Grades 1-2" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <h3 style="color: var(--color-text-main);">Grades 1-2</h3>
+                    <p style="color: var(--color-text-muted); font-weight: bold;">Ages 6 - 8</p>
+                </a>
+                
+                <!-- Category 3 -->
+                <a href="worksheets.html?class=3rd-4th" class="card category-card" style="border-bottom-color: var(--color-yellow);">
+                    <div class="category-icon" style="background-color: #FEF9C3; border-radius: 50%; border: 2px solid var(--color-yellow-dark); overflow: hidden; padding: 10px;">
+                        <img src="assets/hero_illustration.png" alt="Grades 3-4" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.5);">
+                    </div>
+                    <h3 style="color: var(--color-text-main);">Grades 3-4</h3>
+                    <p style="color: var(--color-text-muted); font-weight: bold;">Ages 8 - 10</p>
+                </a>
+
+                <!-- Category 4 -->
+                <a href="worksheets.html?class=5th-6th" class="card category-card" style="border-bottom-color: var(--color-secondary);">
+                    <div class="category-icon" style="background-color: #DCFCE7; border-radius: 50%; border: 2px solid var(--color-secondary); overflow: hidden; padding: 10px;">
+                        <img src="assets/subject_english.png" alt="Grades 5-6" style="width: 100%; height: 100%; object-fit: contain; filter: hue-rotate(90deg);">
+                    </div>
+                    <h3 style="color: var(--color-text-main);">Grades 5-6</h3>
+                    <p style="color: var(--color-text-muted); font-weight: bold;">Ages 10 - 12</p>
+                </a>
+
+                <!-- Category 5 -->
+                <a href="worksheets.html?class=7th-8th" class="card category-card" style="border-bottom-color: #8B5CF6;">
+                    <div class="category-icon" style="background-color: #EDE9FE; border-radius: 50%; border: 2px solid #8B5CF6; overflow: hidden; padding: 10px;">
+                        <img src="assets/subject_math.png" alt="Grades 7-8" style="width: 100%; height: 100%; object-fit: contain; filter: hue-rotate(180deg);">
+                    </div>
+                    <h3 style="color: var(--color-text-main);">Grades 7-8</h3>
+                    <p style="color: var(--color-text-muted); font-weight: bold;">Ages 12 - 14</p>
+                </a>
+
+                <!-- Category 6 -->
+                <a href="worksheets.html?class=9th-10th" class="card category-card" style="border-bottom-color: #F97316;">
+                    <div class="category-icon" style="background-color: #FFEDD5; border-radius: 50%; border: 2px solid #F97316; overflow: hidden; padding: 10px;">
+                        <img src="assets/subject_english.png" alt="Grades 9-10" style="width: 100%; height: 100%; object-fit: contain; filter: hue-rotate(270deg);">
+                    </div>
+                    <h3 style="color: var(--color-text-main);">Grades 9-10</h3>
+                    <p style="color: var(--color-text-muted); font-weight: bold;">Ages 14 - 16</p>
+                </a>
+
+                <!-- Category 7 -->
+                <a href="worksheets.html?class=11th-12th" class="card category-card" style="border-bottom-color: #0EA5E9;">
+                    <div class="category-icon" style="background-color: #E0F2FE; border-radius: 50%; border: 2px solid #0EA5E9; overflow: hidden; padding: 10px;">
+                        <img src="assets/subject_math.png" alt="Grades 11-12" style="width: 100%; height: 100%; object-fit: contain; filter: grayscale(0.5) contrast(1.2);">
+                    </div>
+                    <h3 style="color: var(--color-text-main);">Grades 11-12</h3>
+                    <p style="color: var(--color-text-muted); font-weight: bold;">Ages 16 - 18</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <fun-footer></fun-footer>
+
+    <script src="scripts/main.js"></script>
+<script src="components/header.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/worksheetCard.js"></script>
+    <script src="scripts/api.js"></script>
+</body>
+</html>

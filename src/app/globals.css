@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors */
+  --color-primary-purple: #8B5CF6;
+  --color-secondary-sky: #0EA5E9;
+  --color-accent-yellow: #FBBF24;
+  --color-success-green: #10B981;
+  --color-warning-orange: #F97316;
+  --color-danger-red: #EF4444;
+  --color-magic-pink: #EC4899;
+  --color-nature-green: #84CC16;
+  --color-ocean-blue: #3B82F6;
+  --color-night-purple: #4C1D95;
+  
+  /* Structural Light */
+  --color-bg-light: #F8FAFC;
+  --color-surface: #FFFFFF;
+  --color-card-bg: rgba(255, 255, 255, 0.9);
+  --color-border-soft: #E2E8F0;
+  --color-text-primary: #334155;
+  --color-text-secondary: #64748B;
+
+  /* Structural Dark */
+  --color-bg-dark: #0F172A;
+  --color-surface-dark: #1E293B;
+  --color-text-primary-dark: #F8FAFC;
+
+  /* Typography */
+  --font-heading: var(--font-poppins), sans-serif;
+  --font-body: var(--font-nunito), sans-serif;
+  --font-numbers: var(--font-inter), sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+  }
+}
+
+@layer utilities {
+  .btn-primary {
+    @apply relative overflow-hidden rounded-[24px] font-heading font-extrabold bg-primary-purple text-white transition-all active:scale-95 shadow-[0_6px_0_0_#5B21B6] active:shadow-[0_0px_0_0_#5B21B6] active:translate-y-[6px] hover:bg-[#7C3AED];
+  }
+  .btn-secondary {
+    @apply relative overflow-hidden rounded-[24px] font-heading font-semibold bg-secondary-sky text-white transition-all active:scale-95 shadow-[0_6px_0_0_#0284C7] active:shadow-[0_0px_0_0_#0284C7] active:translate-y-[6px] hover:bg-[#0284C7];
+  }
+  .card-game {
+    @apply rounded-[32px] bg-card-bg shadow-xl shadow-slate-200/50 border-4 border-white/50 backdrop-blur-xl transition-all;
+  }
+}

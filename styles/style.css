@@ -1,0 +1,508 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap');
+
+:root {
+  /* Colors */
+  --color-primary: #1CB0F6; /* Duolingo Blue */
+  --color-primary-dark: #1899D6;
+  --color-secondary: #58CC02; /* Vibrant Green */
+  --color-secondary-dark: #58A700;
+  --color-yellow: #FFC800;
+  --color-yellow-dark: #D4A600;
+  --color-red: #FF4B4B;
+  --color-red-dark: #EA2B2B;
+  --color-bg: #F7F7F7;
+  --color-surface: #FFFFFF;
+  --color-text-main: #4B4B4B;
+  --color-text-muted: #AFB6B9;
+  
+  /* Layout & Spacing */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 9999px;
+  --shadow-sm: 0 4px 0 rgba(0, 0, 0, 0.05); /* 3D bottom shadow */
+  --shadow-md: 0 8px 0 rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow-text: 0px 2px 0px rgba(0,0,0,0.1);
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --max-width: 1200px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Fredoka One', cursive;
+  font-weight: normal;
+  line-height: 1.2;
+  margin-bottom: 0.5em;
+  color: var(--color-text-main);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Layout Utilities */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section {
+  padding: 60px 0;
+}
+
+.text-center { text-align: center; }
+.text-primary { color: var(--color-primary); }
+.text-secondary { color: var(--color-secondary); }
+.text-yellow { color: var(--color-yellow); }
+
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.flex-wrap { flex-wrap: wrap; }
+.gap-2 { gap: 8px; }
+.gap-4 { gap: 16px; }
+.gap-6 { gap: 24px; }
+
+.grid { display: grid; }
+.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+/* Typography Constraints */
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
+}
+
+.section-subtitle {
+  font-size: 1.25rem;
+  color: var(--color-text-muted);
+  margin-bottom: 3rem;
+  font-weight: 700;
+}
+
+/* Buttons (3D gamified style) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.1rem;
+  border-radius: var(--radius-pill);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  outline: none;
+  background-color: var(--color-surface);
+  color: var(--color-text-main);
+  border: 2px solid #E5E5E5;
+  border-bottom: 6px solid #E5E5E5;
+}
+
+.btn:active {
+  transform: translateY(4px);
+  border-bottom-width: 2px;
+  margin-bottom: 4px;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary-dark);
+  border-bottom-color: var(--color-primary-dark);
+  text-shadow: 0 2px 0 rgba(0,0,0,0.1);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: white;
+  border-color: var(--color-secondary-dark);
+  border-bottom-color: var(--color-secondary-dark);
+  text-shadow: 0 2px 0 rgba(0,0,0,0.1);
+}
+
+.btn-yellow {
+  background-color: var(--color-yellow);
+  color: white;
+  border-color: var(--color-yellow-dark);
+  border-bottom-color: var(--color-yellow-dark);
+  text-shadow: 0 2px 0 rgba(0,0,0,0.1);
+}
+
+.btn-icon {
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border-radius: var(--radius-pill);
+  font-size: 1.2rem;
+}
+
+/* Base Cards */
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  border: 2px solid #E5E5E5;
+  border-bottom: 6px solid #E5E5E5;
+  transition: var(--transition);
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-bottom-width: 10px;
+  margin-top: -4px;
+}
+
+.card:active {
+  transform: translateY(4px);
+  border-bottom-width: 2px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+/* Worksheet Card specific */
+.worksheet-card {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: var(--color-surface);
+}
+
+.worksheet-img-container {
+  width: 100%;
+  aspect-ratio: 4/5;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: #F0F0F0;
+  position: relative;
+}
+
+.worksheet-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.worksheet-card:hover .worksheet-img-container img {
+  transform: scale(1.05);
+}
+
+.worksheet-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--color-red);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+  z-index: 2;
+  border: 2px solid var(--color-red-dark);
+}
+
+.worksheet-info h3 {
+  font-size: 1.25rem;
+  margin-bottom: 4px;
+}
+
+.worksheet-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.worksheet-meta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.worksheet-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.worksheet-price {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+}
+
+/* Category Avatar Cards */
+.category-card {
+  background-color: var(--color-surface);
+  text-align: center;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.category-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 8px;
+}
+
+.category-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0;
+}
+
+/* Header */
+.main-header {
+  background-color: var(--color-surface);
+  border-bottom: 2px solid #E5E5E5;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 15px 0;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-logo {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.site-logo span {
+  color: var(--color-secondary);
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.main-nav a {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  transition: var(--transition);
+}
+
+.main-nav a:hover, .main-nav a.active {
+  color: var(--color-primary);
+}
+
+.header-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.cart-icon {
+  position: relative;
+  font-size: 1.5rem;
+  color: var(--color-text-main);
+  padding: 10px;
+}
+
+.cart-count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--color-red);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 800;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--color-text-main);
+}
+
+/* Footer */
+.main-footer {
+  background-color: #E2E8F0;
+  padding: 60px 0 30px;
+  margin-top: 60px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-col h4 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: var(--color-text-main);
+}
+
+.footer-col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-col a {
+  color: var(--color-text-muted);
+  font-weight: 700;
+  transition: var(--transition);
+}
+
+.footer-col a:hover {
+  color: var(--color-primary);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 2px solid #CBD5E1;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+/* Input Fields */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--color-text-main);
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 20px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #F0F4F8;
+  border: 2px solid #E2E8F0;
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: var(--transition);
+}
+
+.form-input:focus {
+  border-color: var(--color-primary);
+  background-color: white;
+}
+
+/* Animations */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-bounce {
+  animation: bounce 2s infinite ease-in-out;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .grid-cols-4 { grid-template-columns: repeat(3, 1fr); }
+  .footer-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .grid-cols-3, .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+  
+  .main-nav {
+    display: none; /* simple mobile nav */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-surface);
+    padding: 20px;
+    border-bottom: 4px solid #E5E5E5;
+  }
+  
+  .main-nav.active {
+    display: block;
+  }
+  
+  .main-nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .mobile-menu-btn {
+    display: block;
+  }
+  
+  .header-actions .btn {
+    display: none; /* Hide login button on mobile for space */
+  }
+  
+  .section-title { font-size: 2rem; }
+}
+
+@media (max-width: 480px) {
+  .grid-cols-2 { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .hero-container { padding: 40px 20px; }
+}

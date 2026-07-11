@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Game - FunSheets</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        .arcade-wrapper {
+            background-color: var(--color-bg);
+            padding: 40px 0;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .arcade-cabinet {
+            background: #1E293B;
+            /* Dark space grey */
+            border-radius: 30px;
+            border: 6px solid #475569;
+            border-bottom: 15px solid #334155;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        /* Neon Header strip */
+        .arcade-marquee {
+            background: linear-gradient(90deg, #F43F5E, #EC4899, #8B5CF6, #3B82F6);
+            padding: 15px;
+            text-align: center;
+            border-bottom: 5px solid #0F172A;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .marquee-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.2rem;
+            color: white;
+            text-shadow: 0 4px 0 rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 255, 255, 0.5);
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        /* Top Bar stats */
+        .arcade-status-bar {
+            background: #0F172A;
+            padding: 12px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.2rem;
+            border-bottom: 3px solid #1E293B;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-score {
+            color: var(--color-yellow);
+        }
+
+        .status-timer {
+            color: var(--color-primary);
+        }
+
+        .status-lives {
+            color: var(--color-red);
+            font-size: 1.3rem;
+        }
+
+        /* Game Screen area */
+        .arcade-screen {
+            background: #0B0F19;
+            /* Deep space black */
+            height: 450px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        /* Retro CRT scanline effect */
+        .arcade-screen::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+
+            z-index: 100;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        /* Arcade controls platform */
+        .arcade-panel {
+            background: #1E293B;
+            padding: 24px;
+            border-top: 5px solid #0F172A;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .controls-info {
+            color: #94A3B8;
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .arcade-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .arcade-btn {
+            font-family: 'Fredoka One', cursive;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            color: white;
+            border-radius: var(--radius-sm);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 0 rgba(0, 0, 0, 0.3);
+            transition: transform 0.1s;
+        }
+
+        .arcade-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-red {
+            background: var(--color-red);
+        }
+
+        .btn-green {
+            background: var(--color-secondary);
+        }
+
+        .btn-blue {
+            background: var(--color-primary);
+        }
+
+        /* Game intro overlay screen */
+        .game-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 90;
+            text-align: center;
+            padding: 15px 25px;
+        }
+
+        .overlay-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        .overlay-title {
+            font-size: 2.2rem;
+            font-family: 'Fredoka One', cursive;
+            color: var(--color-yellow);
+            margin-bottom: 15px;
+        }
+
+        .overlay-desc {
+            font-size: 1.25rem;
+            max-width: 500px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #94A3B8;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <fun-header></fun-header>
+
+    <div class="arcade-wrapper">
+        <div class="container">
+            <div class="arcade-cabinet">
+                <!-- Cabinet Marquee Header -->
+                <div class="arcade-marquee">
+                    <h1 class="marquee-title" id="game-marquee-name">FUN ARCADE</h1>
+                </div>
+
+                <!-- Status Bar (Score, Timer, Health) -->
+                <div class="arcade-status-bar">
+                    <div class="status-item">
+                        <span>SCORE:</span>
+                        <span class="status-score" id="status-score-val">0000</span>
+                    </div>
+                    <div class="status-item">
+                        <i class="far fa-clock"></i>
+                        <span class="status-timer" id="status-timer-val">60s</span>
+                    </div>
+                    <div class="status-item">
+                        <span>LIVES:</span>
+                        <span class="status-lives" id="status-lives-val">❤️❤️❤️</span>
+                    </div>
+                </div>
+
+                <!-- Screen Area -->
+                <div class="arcade-screen" id="game-screen-area">
+                    <!-- Overlay Screen -->
+                    <div class="game-overlay" id="game-start-overlay">
+                        <div class="overlay-icon" id="game-start-icon">🧼🫧</div>
+                        <h2 class="overlay-title" id="game-start-title">Bubble Pop Addition</h2>
+                        <p class="overlay-desc" id="game-start-desc">Match floating bubble equations to target numbers
+                            and pop them!</p>
+                        <button class="arcade-btn btn-green" id="start-game-btn"
+                            style="font-size: 1.4rem; padding: 16px 36px;">
+                            START GAME <i class="fas fa-play" style="margin-left: 8px;"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Control Panel -->
+                <div class="arcade-panel">
+                    <div class="controls-info" id="game-controls-helper">
+                        <i class="fas fa-mouse-pointer"></i> Use your Mouse to click and pop bubbles!
+                    </div>
+                    <div class="arcade-buttons">
+                        <button class="arcade-btn btn-red" id="quit-game-btn">QUIT</button>
+                        <button class="arcade-btn btn-blue" id="sound-game-btn"><i class="fas fa-volume-up"></i>
+                            SOUND</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <fun-footer></fun-footer>
+
+    <script src="scripts/main.js"></script>
+    <script src="components/header.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="scripts/api.js"></script>
+
+    <!-- Loader Logic -->
+    <script>
+        // Audio Toggle state
+        let soundEnabled = true;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const gameId = params.get('game');
+
+            const marqueeName = document.getElementById('game-marquee-name');
+            const startIcon = document.getElementById('game-start-icon');
+            const startTitle = document.getElementById('game-start-title');
+            const startDesc = document.getElementById('game-start-desc');
+            const startBtn = document.getElementById('start-game-btn');
+            const quitBtn = document.getElementById('quit-game-btn');
+            const soundBtn = document.getElementById('sound-game-btn');
+            const controlsHelper = document.getElementById('game-controls-helper');
+
+            // Quit handler
+            quitBtn.addEventListener('click', () => {
+                if (confirm('Are you sure you want to quit the game?')) {
+                    window.location.href = 'games.html';
+                }
+            });
+
+            // Sound Toggle handler
+            soundBtn.addEventListener('click', () => {
+                soundEnabled = !soundEnabled;
+                if (soundEnabled) {
+                    soundBtn.innerHTML = '<i class="fas fa-volume-up"></i> SOUND';
+                    soundBtn.className = 'arcade-btn btn-blue';
+                } else {
+                    soundBtn.innerHTML = '<i class="fas fa-volume-mute"></i> MUTED';
+                    soundBtn.className = 'arcade-btn btn-red';
+                }
+            });
+
+            // Map game IDs to scripts and details
+            const gamesList = {
+                'antonym-builder': {
+                    name: 'ANTONYM BRIDGE BUILDER',
+                    icon: '🌉🧩',
+                    desc: 'Match word cards with their correct opposite (antonym) slots to help Rexy cross the bridge!',
+                    controls: '<i class="fas fa-arrows-alt"></i> Drag and drop or click to match word cards with their opposites!',
+                    script: 'scripts/games/antonym-builder.js'
+                },
+                'drag-drop-match': {
+                    name: 'DRAG & DROP MATH MATCH',
+                    icon: '🧩🎯',
+                    desc: 'Drag the equation cards on the left and drop them into the correct answer slots on the right to clear the board!',
+                    controls: '<i class="fas fa-arrows-alt"></i> Drag and drop the cards onto the matching answer slots!',
+                    script: 'scripts/games/drag-drop.js'
+                },
+                'bubble-addition': {
+                    name: 'BUBBLE POP ADDITION',
+                    icon: '🧼🫧',
+                    desc: 'A target sum is shown at the top. Bubbles float up with addition equations inside. Pop the bubbles that match the target sum to score points! Avoid wrong bubbles!',
+                    controls: '<i class="fas fa-mouse-pointer"></i> Use mouse click / touch to POP correct bubbles!',
+                    script: 'scripts/games/bubble-pop.js'
+                },
+                'dino-subtraction': {
+                    name: 'DINO SUBTRACTION JUMP',
+                    icon: '🦖🌵',
+                    desc: 'Help Rexy run! As obstacles appear, solve the subtraction equation and click/tap the correct door to jump. Score points and protect Rexy!',
+                    controls: '<i class="fas fa-keyboard"></i> Click the correct answer door under the screen to jump!',
+                    script: 'scripts/games/dino-jump.js'
+                }
+            };
+
+            const currentGame = gamesList[gameId];
+
+            if (!currentGame) {
+                // Not found or under construction
+                startIcon.innerText = '🛠️🧱';
+                startTitle.innerText = 'Under Construction!';
+                startDesc.innerText = 'This game is currently being built by our magic dwarves. Check back soon!';
+                startBtn.style.display = 'none';
+                return;
+            }
+
+            // Load game metadata
+            marqueeName.innerText = currentGame.name;
+            startIcon.innerText = currentGame.icon;
+            startTitle.innerText = currentGame.name;
+            startDesc.innerText = currentGame.desc;
+            controlsHelper.innerHTML = currentGame.controls;
+
+            // Start button loads the JS file dynamically and runs init
+            startBtn.addEventListener('click', () => {
+                document.getElementById('game-start-overlay').style.display = 'none';
+
+                // Dynamically append script
+                const gameScript = document.createElement('script');
+                gameScript.src = currentGame.script;
+                document.body.appendChild(gameScript);
+            });
+        });
+    </script>
+</body>
+
+</html>

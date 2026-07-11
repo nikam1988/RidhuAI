@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - FunSheets</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        .about-header {
+            background-color: var(--color-primary);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .about-header h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .about-mission {
+            max-width: 800px;
+            margin: -60px auto 60px;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+            text-align: center;
+            border: 2px solid #E5E5E5;
+            position: relative;
+            z-index: 10;
+        }
+
+        .about-mission p {
+            font-size: 1.2rem;
+            color: var(--color-text-main);
+            line-height: 1.8;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .about-mission {
+                margin-top: 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <fun-header></fun-header>
+
+    <div class="about-header">
+        <div class="container">
+            <h1>Sparking the Joy of Learning</h1>
+            <p style="font-size: 1.5rem; font-weight: 700; opacity: 0.9;">Created by teachers and parents.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="about-mission">
+            <div style="font-size: 3rem; color: var(--color-yellow); margin-bottom: 20px;">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+            <p>
+                At FunSheets, we believe that education shouldn't be boring. Our mission is to transform everyday studying into an exciting adventure where kids of all ages naturally want to engage, explore, and excel!
+            </p>
+        </div>
+
+        <div class="grid grid-cols-3" style="gap: 40px; margin-bottom: 80px; text-align: center;">
+            <div class="card" style="border-bottom-color: var(--color-red);">
+                <i class="fas fa-heart text-red" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                <h3 style="font-size: 1.5rem; margin-bottom: 10px;">Made with Love</h3>
+                <p style="color: var(--color-text-muted); font-weight: 600;">Every worksheet is hand-crafted and illustrated to bring smiles to learning faces.</p>
+            </div>
+            <div class="card" style="border-bottom-color: var(--color-secondary);">
+                <i class="fas fa-leaf text-secondary" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                <h3 style="font-size: 1.5rem; margin-bottom: 10px;">Grows With Them</h3>
+                <p style="color: var(--color-text-muted); font-weight: 600;">From Kindergarten tracing to High School calculus, we have content for every stage.</p>
+            </div>
+            <div class="card" style="border-bottom-color: var(--color-yellow-dark);">
+                <i class="fas fa-star text-yellow" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                <h3 style="font-size: 1.5rem; margin-bottom: 10px;">Top Quality</h3>
+                <p style="color: var(--color-text-muted); font-weight: 600;">Trusted by thousands of teachers across the globe for standard aligned practice.</p>
+            </div>
+        </div>
+    </div>
+
+    <fun-footer></fun-footer>
+    <script src="scripts/main.js"></script>
+<script src="components/header.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/worksheetCard.js"></script>
+    <script src="scripts/api.js"></script>
+</body>
+</html>

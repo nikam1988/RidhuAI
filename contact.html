@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - FunSheets</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        .contact-container {
+            display: flex;
+            gap: 60px;
+            max-width: 900px;
+            margin: 60px auto;
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            border: 2px solid #E5E5E5;
+            border-bottom: 6px solid #E5E5E5;
+            box-shadow: var(--shadow-card);
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-form {
+            flex: 1.5;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: #F0F4F8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--color-primary);
+        }
+
+        .info-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--color-text-main);
+        }
+
+        .info-text p {
+            color: var(--color-text-muted);
+            font-weight: 600;
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                flex-direction: column;
+                padding: 20px;
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <fun-header></fun-header>
+
+    <div class="container">
+        <div class="contact-container">
+            <!-- Form -->
+            <div class="contact-form">
+                <h2 style="font-size: 2.5rem; margin-bottom: 10px; color: var(--color-text-main);">Drop Us a Line</h2>
+                <p style="color: var(--color-text-muted); font-weight: 700; margin-bottom: 30px;">
+                    Have questions about a worksheet or an order? We are here to help!
+                </p>
+                
+                <form>
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-input" placeholder="How can we help?"></textarea>
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%; font-size: 1.25rem;">
+                        Send Message <i class="fas fa-paper-plane" style="margin-left: 10px;"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Info -->
+            <div class="contact-info">
+                <h3 style="font-size: 1.5rem; margin-bottom: 30px;">Get In Touch</h3>
+                
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-map-marker-alt" style="color: var(--color-red);"></i></div>
+                    <div class="info-text">
+                        <h4>Headquarters</h4>
+                        <p>123 Learning Lane<br>Education City, EDU 10101</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-envelope" style="color: var(--color-primary);"></i></div>
+                    <div class="info-text">
+                        <h4>Email Support</h4>
+                        <p>hello@funsheets.kids</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-phone" style="color: var(--color-secondary);"></i></div>
+                    <div class="info-text">
+                        <h4>Call Us</h4>
+                        <p>+1 (800) 555-KIDS<br>Mon-Fri, 9am - 5pm</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <fun-footer></fun-footer>
+    <script src="scripts/main.js"></script>
+<script src="components/header.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/worksheetCard.js"></script>
+    <script src="scripts/api.js"></script>
+</body>
+</html>

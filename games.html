@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Games Portal - Learn & Play - FunSheets</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        .games-portal-wrapper {
+            background-color: var(--color-bg);
+            padding: 60px 0;
+            min-height: 80vh;
+        }
+
+        .portal-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .portal-title {
+            font-size: 3.5rem;
+            color: var(--color-primary);
+            text-shadow: var(--shadow-text);
+            margin-bottom: 10px;
+        }
+
+        .portal-subtitle {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--color-text-main);
+        }
+
+        /* Filter Controls */
+        .filter-section {
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 3px solid #E5E5E5;
+            border-bottom: 7px solid #E5E5E5;
+            padding: 24px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .filter-label {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.3rem;
+            color: var(--color-text-main);
+        }
+
+        .filter-select {
+            padding: 12px 24px;
+            font-size: 1.15rem;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            border: 3px solid #E2E8F0;
+            border-bottom: 6px solid #E2E8F0;
+            border-radius: var(--radius-sm);
+            background: white;
+            color: var(--color-text-main);
+            outline: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-select:focus {
+            border-color: var(--color-primary);
+            border-bottom-color: var(--color-primary-dark);
+        }
+
+        /* Games Grid */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 3px solid #E2E8F0;
+            border-bottom: 8px solid #E2E8F0;
+            overflow: hidden;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .game-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--color-primary);
+            border-bottom-color: var(--color-primary-dark);
+        }
+
+        .game-thumbnail {
+            height: 180px;
+            background: #F0F4F8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5.5rem;
+            border-bottom: 3px dashed #E2E8F0;
+            position: relative;
+            user-select: none;
+        }
+
+        .game-badge-subject {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--color-primary);
+            color: white;
+            padding: 6px 14px;
+            border-radius: var(--radius-pill);
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .game-badge-class {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--color-yellow);
+            color: white;
+            padding: 6px 14px;
+            border-radius: var(--radius-pill);
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .game-info {
+            padding: 24px;
+            flex-grow: 1;
+        }
+
+        .game-name {
+            font-size: 1.6rem;
+            color: var(--color-text-main);
+            margin-bottom: 10px;
+        }
+
+        .game-desc {
+            font-size: 1.05rem;
+            color: #64748B;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .game-footer {
+            padding: 0 24px 24px;
+        }
+
+        .play-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            font-size: 1.25rem;
+            padding: 16px 20px;
+            box-shadow: 0 4px 0 var(--color-secondary-dark);
+            border-radius: var(--radius-sm);
+        }
+
+        .play-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 var(--color-secondary-dark);
+        }
+
+        .no-games-message {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 60px 20px;
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 3px dashed #CBD5E1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <fun-header></fun-header>
+
+    <div class="games-portal-wrapper">
+        <div class="container">
+            <div class="portal-header">
+                <h1 class="portal-title">Play & Learn Games! 🎮</h1>
+                <p class="portal-subtitle">Interactive mini-games to master math and English while having fun!</p>
+            </div>
+
+            <!-- Filters -->
+            <div class="filter-section">
+                <div class="filter-group">
+                    <label class="filter-label" for="class-select">Select Class:</label>
+                    <select id="class-select" class="filter-select">
+                        <option value="all">All Classes</option>
+                        <option value="1">Grade 1</option>
+                        <option value="2" selected>Grade 2</option>
+                        <option value="3">Grade 3</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label" for="subject-select">Subject:</label>
+                    <select id="subject-select" class="filter-select">
+                        <option value="all">All Subjects</option>
+                        <option value="math">Mathematics</option>
+                        <option value="english">English ABCs</option>
+                    </select>
+                </div>
+
+                <div class="filter-group" id="topic-filter-group" style="display: none;">
+                    <label class="filter-label" for="topic-select">CBSE Topic:</label>
+                    <select id="topic-select" class="filter-select">
+                        <option value="all">All Topics</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Games Container -->
+            <div id="games-container-grid" class="games-grid">
+                <!-- Dynamically populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <fun-footer></fun-footer>
+
+    <script src="scripts/main.js"></script>
+    <script src="components/header.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="scripts/api.js"></script>
+
+    <script>
+        // CBSE primary grades syllabus mapping
+        const cbseSyllabus = {
+            '1': {
+                'math': [
+                    { value: 'numbers', label: 'Numbers up to 100' },
+                    { value: 'addition', label: 'Simple Addition' }
+                ],
+                'english': [
+                    { value: 'spelling', label: 'Alphabets & Phonics' }
+                ]
+            },
+            '2': {
+                'math': [
+                    { value: 'addition', label: 'Addition' },
+                    { value: 'subtraction', label: 'Subtraction' },
+                    { value: 'addition-subtraction', label: 'Mix Addition & Subtraction' },
+                    { value: 'shapes-geometry', label: 'Shapes & Geometry' }
+                ],
+                'english': [
+                    { value: 'opposites', label: 'Opposites (Antonyms)' },
+                    { value: 'nouns', label: 'Nouns (Naming Words)' }
+                ]
+            },
+            '3': {
+                'math': [
+                    { value: 'multiplication', label: 'Multiplication Tables' },
+                    { value: 'money', label: 'Money Calculations' }
+                ],
+                'english': [
+                    { value: 'adjectives', label: 'Describing Adjectives' }
+                ]
+            }
+        };
+
+        // Static games dataset mapped to CBSE syllabus topics
+        const gamesData = [
+            {
+                id: 'drag-drop-match',
+                name: 'Drag & Drop Math Match',
+                description: 'Drag the math equation cards and drop them onto the correct answer slots! Super interactive math puzzle.',
+                emoji: '🧩🎯',
+                classLevel: '2',
+                subject: 'math',
+                topic: 'addition-subtraction',
+                color: '#8B5CF6'
+            },
+            {
+                id: 'bubble-addition',
+                name: 'Bubble Pop Addition',
+                description: 'Match floating bubble equations to target numbers and pop them! Super fun addition game.',
+                emoji: '🧼🫧',
+                classLevel: '2',
+                subject: 'math',
+                topic: 'addition',
+                color: '#1CB0F6'
+            },
+            {
+                id: 'dino-subtraction',
+                name: 'Dino Subtraction Jump',
+                description: 'Solve subtraction equations to make Rexy the dino jump cacti obstacles and run high scores!',
+                emoji: '🦖🌵',
+                classLevel: '2',
+                subject: 'math',
+                topic: 'subtraction',
+                color: '#58CC02'
+            },
+            {
+                id: 'shape-clicker',
+                name: 'Shape Match Hunter',
+                description: 'Identify shapes by counting their sides and corners. Pop them before the timer runs out!',
+                emoji: '🔺🟡',
+                classLevel: '2',
+                subject: 'math',
+                topic: 'shapes-geometry',
+                color: '#FFC800'
+            },
+            {
+                id: 'antonym-builder',
+                name: 'Antonym Bridge Builder',
+                description: 'Match the word cards with their correct opposite (antonym) slots to build Rexy\'s bridge!',
+                emoji: '🌉🧩',
+                classLevel: '2',
+                subject: 'english',
+                topic: 'opposites',
+                color: '#EC4899'
+            },
+            {
+                id: 'spell-bubble',
+                name: 'Spell Splasher',
+                description: 'Pop letters in the correct order to spell the words and splash the canvas!',
+                emoji: '🐝📝',
+                classLevel: '1',
+                subject: 'english',
+                topic: 'spelling',
+                color: '#FF4B4B'
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const classSelect = document.getElementById('class-select');
+            const subjectSelect = document.getElementById('subject-select');
+            const topicSelect = document.getElementById('topic-select');
+            const topicFilterGroup = document.getElementById('topic-filter-group');
+            const grid = document.getElementById('games-container-grid');
+
+            // Updates the list of topics based on Class and Subject
+            const updateTopicsList = () => {
+                const selectedClass = classSelect.value;
+                const selectedSubject = subjectSelect.value;
+
+                // Show topics selector only if both specific class and subject are chosen
+                if (selectedClass === 'all' || selectedSubject === 'all') {
+                    topicFilterGroup.style.display = 'none';
+                    topicSelect.value = 'all';
+                } else {
+                    const topics = cbseSyllabus[selectedClass]?.[selectedSubject] || [];
+                    
+                    // Re-render topic options
+                    let optionsHtml = '<option value="all">All Topics</option>';
+                    topics.forEach(t => {
+                        optionsHtml += `<option value="${t.value}">${t.label}</option>`;
+                    });
+                    
+                    topicSelect.innerHTML = optionsHtml;
+                    topicFilterGroup.style.display = 'flex';
+                }
+            };
+
+            const renderGames = () => {
+                const selectedClass = classSelect.value;
+                const selectedSubject = subjectSelect.value;
+                const selectedTopic = topicSelect.value;
+
+                // Filter
+                const filteredGames = gamesData.filter(g => {
+                    const classMatch = selectedClass === 'all' || g.classLevel === selectedClass;
+                    const subjectMatch = selectedSubject === 'all' || g.subject === selectedSubject;
+                    const topicMatch = selectedTopic === 'all' || g.topic === selectedTopic;
+                    return classMatch && subjectMatch && topicMatch;
+                });
+
+                // Clear
+                grid.innerHTML = '';
+
+                if (filteredGames.length === 0) {
+                    grid.innerHTML = `
+                        <div class="no-games-message">
+                            <i class="fas fa-search" style="font-size: 3rem; color: var(--color-text-muted); margin-bottom: 20px;"></i>
+                            <h2>No games found for this combination!</h2>
+                            <p style="color: var(--color-text-muted); margin-top: 10px;">Try changing filters or select "All Classes".</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Render Cards
+                filteredGames.forEach(g => {
+                    grid.innerHTML += `
+                        <div class="game-card">
+                            <div>
+                                <div class="game-thumbnail" style="background: ${g.color}15;">
+                                    <span class="game-badge-subject" style="background: ${g.color};">${g.subject}</span>
+                                    <span class="game-badge-class">Grade ${g.classLevel}</span>
+                                    ${g.emoji}
+                                </div>
+                                <div class="game-info">
+                                    <h3 class="game-name">${g.name}</h3>
+                                    <p class="game-desc">${g.description}</p>
+                                </div>
+                            </div>
+                            <div class="game-footer">
+                                <a href="play-game.html?game=${g.id}" class="btn btn-secondary play-btn">
+                                    Play Now <i class="fas fa-gamepad" style="margin-left: 5px;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                });
+            };
+
+            // Event Listeners
+            classSelect.addEventListener('change', () => {
+                updateTopicsList();
+                renderGames();
+            });
+            subjectSelect.addEventListener('change', () => {
+                updateTopicsList();
+                renderGames();
+            });
+            topicSelect.addEventListener('change', renderGames);
+
+            // Initial load
+            updateTopicsList();
+            renderGames();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Mode - FunSheets</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        .practice-wrapper {
+            background-color: var(--color-bg);
+            padding: 50px 0;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Setup Flow Dashboard styling */
+        .setup-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 3px solid #E5E5E5;
+            border-bottom: 8px solid #E5E5E5;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .setup-header {
+            text-align: center;
+            border-bottom: 3px dashed #E5E5E5;
+            padding-bottom: 25px;
+            margin-bottom: 35px;
+        }
+
+        .setup-title {
+            font-size: 2.8rem;
+            color: var(--color-primary);
+            text-shadow: var(--shadow-text);
+            margin-bottom: 8px;
+        }
+
+        .setup-subtitle {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--color-text-muted);
+        }
+
+        /* Step Progress Dots */
+        .step-dots {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #E2E8F0;
+            transition: var(--transition);
+        }
+
+        .dot.active {
+            background: var(--color-primary);
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(28, 176, 246, 0.4);
+        }
+
+        .dot.completed {
+            background: var(--color-secondary);
+        }
+
+        /* Step Panels */
+        .step-panel {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+
+        .step-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-question {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--color-text-main);
+        }
+
+        /* Grid selections */
+        .selection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .selection-card {
+            background: white;
+            border: 3px solid #E2E8F0;
+            border-bottom: 7px solid #E2E8F0;
+            border-radius: var(--radius-md);
+            padding: 25px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            user-select: none;
+        }
+
+        .selection-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-primary);
+            border-bottom-color: var(--color-primary-dark);
+        }
+
+        .selection-card.selected {
+            background: #E0F2FE;
+            border-color: var(--color-primary);
+            border-bottom-color: var(--color-primary-dark);
+            color: var(--color-primary-dark);
+            transform: translateY(2px);
+            border-bottom-width: 3px;
+        }
+
+        .card-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .selection-card:hover .card-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .card-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.3rem;
+            color: inherit;
+        }
+
+        /* Button controls */
+        .step-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .btn-back {
+            background: white;
+            border-color: #E2E8F0;
+            border-bottom-color: #E2E8F0;
+            color: #64748B;
+        }
+
+        .btn-back:hover {
+            background: #F8FAFC;
+        }
+
+        /* Arcade Cabinet gameplay container */
+        .arcade-cabinet {
+            background: #1E293B;
+            border-radius: 30px;
+            border: 6px solid #475569;
+            border-bottom: 15px solid #334155;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            position: relative;
+            display: none;
+            /* Shown during gameplay */
+        }
+
+        .arcade-marquee {
+            background: linear-gradient(90deg, #3B82F6, #8B5CF6, #EC4899, #F43F5E);
+            padding: 15px;
+            text-align: center;
+            border-bottom: 5px solid #0F172A;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .marquee-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.2rem;
+            color: white;
+            text-shadow: 0 4px 0 rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 255, 255, 0.5);
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        .arcade-status-bar {
+            background: #0F172A;
+            padding: 12px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.2rem;
+            border-bottom: 3px solid #1E293B;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-score {
+            color: var(--color-yellow);
+        }
+
+        .status-progress {
+            color: var(--color-primary);
+        }
+
+        .status-lives {
+            color: var(--color-red);
+            font-size: 1.3rem;
+        }
+
+        .arcade-screen {
+            background: #0B0F19;
+            height: 480px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        /* CRT Screen Scanline effect */
+        .arcade-screen::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+
+            z-index: 99;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        .arcade-panel {
+            background: #1E293B;
+            padding: 20px 24px;
+            border-top: 5px solid #0F172A;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .controls-info {
+            color: #94A3B8;
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .arcade-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .arcade-btn {
+            font-family: 'Fredoka One', cursive;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            color: white;
+            border-radius: var(--radius-sm);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 0 rgba(0, 0, 0, 0.3);
+            transition: transform 0.1s;
+        }
+
+        .arcade-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-red {
+            background: var(--color-red);
+        }
+
+        .btn-blue {
+            background: var(--color-primary);
+        }
+
+        .btn-green {
+            background: var(--color-secondary);
+        }
+
+        /* Game intro overlay screen */
+        .game-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 90;
+            text-align: center;
+            padding: 25px;
+        }
+
+        .overlay-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        .overlay-title {
+            font-size: 2.2rem;
+            font-family: 'Fredoka One', cursive;
+            color: var(--color-yellow);
+            margin-bottom: 15px;
+        }
+
+        .overlay-desc {
+            font-size: 1.25rem;
+            max-width: 500px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #94A3B8;
+        }
+
+        /* Confetti / Particle / Victory Screen */
+        .victory-panel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.98);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            text-align: center;
+            padding: 30px;
+            transform: scale(0.9);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .victory-panel.active {
+            transform: scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 15px;
+            font-size: 3.5rem;
+            color: #CBD5E1;
+            margin-bottom: 25px;
+        }
+
+        .star-rating .fa-star.gold {
+            color: var(--color-yellow);
+            text-shadow: 0 0 15px rgba(255, 200, 0, 0.6);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0);
+                rotate: -45deg;
+            }
+
+            100% {
+                transform: scale(1);
+                rotate: 0;
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <fun-header></fun-header>
+
+    <div class="practice-wrapper">
+        <div class="container">
+
+            <!-- SETUP FLOW DASHBOARD -->
+            <div id="setup-dashboard" class="setup-card">
+                <div class="setup-header">
+                    <h1 class="setup-title">Practice Mode 🧠</h1>
+                    <p class="setup-subtitle">Create your custom game solver dashboard to practice lessons!</p>
+                </div>
+
+                <!-- Progress Dots -->
+                <div class="step-dots">
+                    <div class="dot active" id="dot-1"></div>
+                    <div class="dot" id="dot-2"></div>
+                    <div class="dot" id="dot-3"></div>
+                    <div class="dot" id="dot-4"></div>
+                    <div class="dot" id="dot-5"></div>
+                </div>
+
+                <!-- STEP 1: CLASS SELECTION -->
+                <div class="step-panel active" id="step-panel-1">
+                    <h2 class="step-question">Choose your Class:</h2>
+                    <div class="selection-grid">
+                        <div class="selection-card" data-step="1" data-val="1">
+                            <span class="card-icon">🌱</span>
+                            <div class="card-title">Grade 1</div>
+                        </div>
+                        <div class="selection-card" data-step="1" data-val="2">
+                            <span class="card-icon">🚀</span>
+                            <div class="card-title">Grade 2</div>
+                        </div>
+                        <div class="selection-card" data-step="1" data-val="3">
+                            <span class="card-icon">🎓</span>
+                            <div class="card-title">Grade 3</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: BOARD SELECTION -->
+                <div class="step-panel" id="step-panel-2">
+                    <h2 class="step-question">Select Syllabus Board:</h2>
+                    <div class="selection-grid" style="grid-template-columns: repeat(2, 1fr);">
+                        <div class="selection-card" data-step="2" data-val="cbse">
+                            <span class="card-icon">🇮🇳</span>
+                            <div class="card-title">CBSE</div>
+                        </div>
+                        <div class="selection-card" data-step="2" data-val="ncert">
+                            <span class="card-icon">📚</span>
+                            <div class="card-title">NCERT</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3: SUBJECT SELECTION -->
+                <div class="step-panel" id="step-panel-3">
+                    <h2 class="step-question">Select Subject:</h2>
+                    <div class="selection-grid" id="subjects-container">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- STEP 4: TOPIC SELECTION -->
+                <div class="step-panel" id="step-panel-4">
+                    <h2 class="step-question">Select Topic:</h2>
+                    <div class="selection-grid" id="topics-container">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- STEP 5: GAME ENGINE SELECTION -->
+                <div class="step-panel" id="step-panel-5">
+                    <h2 class="step-question">Choose Game Solving Style:</h2>
+                    <div class="selection-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+                        <div class="selection-card" data-step="5" data-val="bubble">
+                            <span class="card-icon">🫧</span>
+                            <div class="card-title">Bubble Pop</div>
+                        </div>
+                        <div class="selection-card" data-step="5" data-val="drag-drop">
+                            <span class="card-icon">🧩</span>
+                            <div class="card-title">Drag & Drop</div>
+                        </div>
+                        <div class="selection-card" data-step="5" data-val="matching">
+                            <span class="card-icon">🔗</span>
+                            <div class="card-title">Match Following</div>
+                        </div>
+                        <div class="selection-card" data-step="5" data-val="true-false">
+                            <span class="card-icon">✅</span>
+                            <div class="card-title">True or False</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons navigation -->
+                <div class="step-buttons">
+                    <button class="btn btn-back" id="btn-back-step" style="display: none;"><i
+                            class="fas fa-arrow-left"></i> Back</button>
+                    <div style="flex-grow: 1;"></div>
+                    <button class="btn btn-primary" id="btn-next-step" disabled>Next <i
+                            class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- ARCADE CABINET WORKSPACE -->
+            <div id="arcade-workspace" class="arcade-cabinet">
+                <!-- Header marquee -->
+                <div class="arcade-marquee">
+                    <h1 class="marquee-title" id="marquee-game-title">PRACTICE ARENA</h1>
+                </div>
+
+                <!-- Status panel -->
+                <div class="arcade-status-bar">
+                    <div class="status-item">
+                        <span>SCORE:</span>
+                        <span class="status-score" id="game-score">0000</span>
+                    </div>
+                    <div class="status-item">
+                        <span>QUESTION:</span>
+                        <span class="status-progress" id="game-progress">0/5</span>
+                    </div>
+                    <div class="status-item">
+                        <span>LIVES:</span>
+                        <span class="status-lives" id="game-lives">❤️❤️❤️</span>
+                    </div>
+                </div>
+
+                <!-- Arcade screen where game elements render -->
+                <div class="arcade-screen" id="arcade-game-screen">
+
+                    <!-- Pre-game Overlay screen -->
+                    <div class="game-overlay" id="pregame-overlay">
+                        <div class="overlay-icon" id="pregame-icon">🎮</div>
+                        <h2 class="overlay-title" id="pregame-title">Ready to Practice?</h2>
+                        <p class="overlay-desc" id="pregame-desc">Get ready to solve questions with your selected style!
+                        </p>
+                        <button class="arcade-btn btn-green" id="btn-start-gameplay"
+                            style="font-size: 1.4rem; padding: 16px 36px;">
+                            START PRACTICE <i class="fas fa-play" style="margin-left: 8px;"></i>
+                        </button>
+                    </div>
+
+                    <!-- Post-game Victory overlay -->
+                    <div class="victory-panel" id="victory-overlay">
+                        <div style="font-size: 5rem; margin-bottom: 15px;">🏆✨</div>
+                        <h2 class="overlay-title" style="font-size: 2.5rem; color: var(--color-yellow);">LEVEL
+                            COMPLETED!</h2>
+
+                        <div class="star-rating" id="victory-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+
+                        <p class="overlay-desc" id="victory-details" style="color: white; font-size: 1.3rem;">
+                            You scored <strong>500 points</strong> with <strong>100% accuracy</strong>!
+                        </p>
+
+                        <div style="display: flex; gap: 20px; justify-content: center; margin-top: 15px;">
+                            <button class="arcade-btn btn-blue" id="btn-restart-game"><i class="fas fa-redo"></i>
+                                Replay</button>
+                            <button class="arcade-btn btn-green" id="btn-lobby-game"><i class="fas fa-list"></i> New
+                                Topic</button>
+                        </div>
+                    </div>
+
+                    <!-- DYNAMIC GAME BOARD CONTAINER (Where the 4 game layouts render) -->
+                    <div id="game-board-container"
+                        style="width: 100%; height: 100%; position: relative; overflow: hidden; display: none;"></div>
+
+                </div>
+
+                <!-- Cabinet controls panel -->
+                <div class="arcade-panel">
+                    <div class="controls-info" id="game-controls-helper">
+                        <i class="fas fa-info-circle"></i> Complete your selections to start practicing.
+                    </div>
+                    <div class="arcade-buttons">
+                        <button class="arcade-btn btn-red" id="btn-quit-game">QUIT</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <fun-footer></fun-footer>
+
+    <script src="scripts/main.js"></script>
+    <script src="components/header.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/worksheetCard.js"></script>
+    <script src="scripts/api.js"></script>
+    <script src="scripts/practice.js"></script>
+</body>
+
+</html>

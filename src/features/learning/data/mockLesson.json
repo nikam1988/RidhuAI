@@ -1,0 +1,45 @@
+{
+  "lessonId": "math_class2_add_01",
+  "topicId": "addition_carry_over",
+  "title": "Magic Addition with Carry Over",
+  "durationMinutes": 10,
+  "difficulty": 2,
+  "learningGoal": "Learn how to add 2-digit numbers using carry over.",
+  "requiredSkills": ["Counting to 100", "Basic Addition"],
+  "vocabulary": ["Tens", "Ones", "Carry Over", "Sum"],
+  "nodes": [
+    {
+      "id": "node_1",
+      "type": "story",
+      "animationUrl": "/assets/lottie/panda_thinking.json",
+      "text": "Spark Panda wants to buy 25 apples and 18 bananas. How many fruits does he have in total?"
+    },
+    {
+      "id": "node_2",
+      "type": "explanation",
+      "title": "Let's group the Ones!",
+      "text": "First, we add the ones: 5 + 8 = 13. We can't keep 13 in the Ones room! We keep the 3, and carry the 1 Ten to the Tens room.",
+      "imageUrl": "/assets/images/math_carry_over_explain.png"
+    },
+    {
+      "id": "node_3",
+      "type": "mini_quiz",
+      "question": "What is 25 + 18?",
+      "options": ["33", "43", "53", "313"],
+      "correctAnswerIndex": 1,
+      "commonMistakes": {
+        "0": "Did you forget to add the 1 we carried over?",
+        "3": "We can't write 13 in the Ones column. We must carry the 1!"
+      },
+      "hint": "Add 5 + 8 first. It's 13. Write 3 and carry 1. Then add 2 + 1 + 1.",
+      "rewardXp": 50,
+      "rewardCoins": 10
+    },
+    {
+      "id": "node_4",
+      "type": "summary",
+      "text": "Great job! You helped Spark Panda count all 43 fruits!",
+      "funFact": "Did you know Pandas eat bamboo for 12 hours every day? 🎋"
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - FunSheets</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        .cart-wrapper {
+            display: flex;
+            gap: 40px;
+            padding: 60px 0;
+            align-items: flex-start;
+        }
+
+        .cart-items {
+            flex: 2;
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            border: 2px solid #E5E5E5;
+            border-bottom: 6px solid #E5E5E5;
+        }
+
+        .cart-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #F0F4F8;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 2px solid #F0F4F8;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .cart-item-img {
+            width: 100px;
+            border-radius: var(--radius-md);
+            background: #F0F4F8;
+        }
+
+        .cart-item-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cart-item-header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .cart-item-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-text-main);
+        }
+
+        .cart-item-price {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.25rem;
+            color: var(--color-primary);
+        }
+
+        .cart-item-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-remove {
+            color: var(--color-red);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .item-remove:hover {
+            text-decoration: underline;
+        }
+
+        .cart-summary {
+            flex: 1;
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            border: 2px solid #E5E5E5;
+            border-bottom: 6px solid #E5E5E5;
+        }
+
+        .summary-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #F0F4F8;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: var(--color-text-main);
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #F0F4F8;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--color-text-main);
+            font-family: 'Fredoka One', cursive;
+        }
+
+        @media (max-width: 900px) {
+            .cart-wrapper {
+                flex-direction: column;
+            }
+            .cart-summary {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <fun-header></fun-header>
+
+    <div class="container">
+        <div class="cart-wrapper">
+            <!-- Items -->
+            <div class="cart-items">
+                <h1 class="cart-title">Your Magic Cart</h1>
+                
+                <div id="cart-items-container">
+                    <!-- Dynamic cart items here -->
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="cart-summary">
+                <h2 class="summary-title">Order Summary</h2>
+                
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal">₹0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax (18% GST)</span>
+                    <span id="cart-tax">₹0</span>
+                </div>
+
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span id="cart-total">₹0</span>
+                </div>
+
+                <button id="checkoutBtn" class="btn btn-yellow" style="width: 100%; margin-top: 30px; font-size: 1.25rem;">
+                    Checkout securely <i class="fas fa-lock" style="margin-left: 10px;"></i>
+                </button>
+                
+                <div style="text-align: center; margin-top: 20px; display: flex; justify-content: center; gap: 15px; color: #CBD5E1; font-size: 1.5rem;">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-google-pay"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/cart.js"></script>
+    <script src="components/header.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/worksheetCard.js"></script>
+    <script src="scripts/api.js"></script>
+</body>
+</html>
