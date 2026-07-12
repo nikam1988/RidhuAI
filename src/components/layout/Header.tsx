@@ -7,7 +7,7 @@ export function Header() {
         <div className="w-10 h-10 bg-brand-purple rounded-full flex items-center justify-center text-white font-bold text-xl shadow-inner shadow-white/30 border-2 border-brand-purple">
           K
         </div>
-        <span className="font-extrabold text-xl text-slate-700 hidden sm:inline-block">KidSpark</span>
+        <span className="font-extrabold text-xl text-slate-700 hidden sm:inline-block">Ridhvi AI</span>
       </div>
 
       <div className="flex items-center gap-3 md:gap-6 bg-slate-100 rounded-full px-4 py-2 border-2 border-slate-200">

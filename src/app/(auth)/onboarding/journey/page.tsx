@@ -61,7 +61,7 @@ export default function LearningJourneyPreviewScreen() {
           onClick={() => router.push('/dashboard')}
           className="bg-white px-8 py-4 rounded-full font-heading font-bold text-primary-purple text-xl shadow-lg flex items-center gap-3 hover:scale-105 active:scale-95 transition-all"
         >
-          Enter KidSpark <ArrowRight />
+          Enter Ridhvi AI <ArrowRight />
         </button>
       </motion.div>
     </AnimatedBackground>

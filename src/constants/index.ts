@@ -25,7 +25,7 @@ export const ROLES = {
 
 // Storage Keys
 export const STORAGE_KEYS = {
-  AUTH_TOKEN: '@kidspark/auth',
-  THEME: '@kidspark/theme',
-  SOUND_ENABLED: '@kidspark/sound'
+  AUTH_TOKEN: '@ridhviai/auth',
+  THEME: '@ridhviai/theme',
+  SOUND_ENABLED: '@ridhviai/sound'
 };

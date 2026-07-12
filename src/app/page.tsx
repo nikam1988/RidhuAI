@@ -63,7 +63,7 @@ export default function SplashScreen() {
       >
         <div className="relative mb-6">
           <h1 className="text-6xl font-heading font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary-purple to-magic-pink drop-shadow-sm pb-2">
-            KidSpark AI
+            Ridhvi AI
           </h1>
           {/* Mock Mascot Waving */}
           <motion.div 

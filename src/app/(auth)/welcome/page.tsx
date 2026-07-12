@@ -31,7 +31,7 @@ export default function WelcomeScreen() {
         </div>
 
         <h1 className="text-3xl font-heading font-extrabold text-primary-purple mb-2">
-          Welcome to KidSpark AI
+          Welcome to Ridhvi AI
         </h1>
         <p className="text-lg font-body font-bold text-text-secondary mb-8">
           Learn while you play!

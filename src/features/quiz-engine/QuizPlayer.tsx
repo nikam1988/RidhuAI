@@ -18,7 +18,7 @@ const MOCK_QUESTION = {
 }
 
 export function QuizPlayer({ onFinish }: { onFinish: () => void }) {
-  const { currentStreak, comboMultiplier, xpEarned, useHint, answerCorrectly, answerIncorrectly } = useQuizStore()
+  const { currentStreak, comboMultiplier, xpEarned, useHint: applyHint, answerCorrectly, answerIncorrectly } = useQuizStore()
   const [showHint, setShowHint] = useState(false)
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
   const [isEvaluating, setIsEvaluating] = useState(false)
@@ -125,7 +125,7 @@ export function QuizPlayer({ onFinish }: { onFinish: () => void }) {
       {/* Bottom Bar */}
       <div className="mt-6 flex justify-between items-center gap-4">
         <button 
-          onClick={() => { setShowHint(true); useHint() }}
+          onClick={() => { setShowHint(true); applyHint() }}
           disabled={showHint || isEvaluating}
           className="flex items-center gap-2 px-6 py-4 rounded-2xl bg-white border border-slate-200 text-slate-500 font-bold hover:bg-slate-50 shadow-sm disabled:opacity-50"
         >

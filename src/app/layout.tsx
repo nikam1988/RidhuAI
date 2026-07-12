@@ -22,13 +22,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "KidSpark AI",
+  title: "Ridhvi AI",
   description: "Learn • Play • Grow",
   themeColor: "#8B5CF6",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "KidSpark AI",
+    title: "Ridhvi AI",
   },
 };
 

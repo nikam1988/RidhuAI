@@ -7,7 +7,7 @@ const firebaseConfig = {
   // TODO: Replace with actual Firebase config from Firebase Console
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "mock-api-key",
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "mock-auth-domain",
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "kidspark-ai",
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "ridhviai",
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "mock-storage-bucket",
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || "mock-sender-id",
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "mock-app-id",

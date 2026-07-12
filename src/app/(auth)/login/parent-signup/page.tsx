@@ -36,7 +36,7 @@ export default function ParentSignupScreen() {
             Create Account
           </h1>
           <p className="font-body font-bold text-text-secondary">
-            Join the KidSpark adventure!
+            Join the Ridhvi AI adventure!
           </p>
         </div>
 

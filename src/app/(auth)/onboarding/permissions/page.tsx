@@ -39,7 +39,7 @@ export default function PermissionsScreen() {
             Magic Permissions
           </h1>
           <p className="font-body font-bold text-text-secondary">
-            Let's make sure everything works perfectly!
+            Let&apos;s make sure everything works perfectly!
           </p>
         </div>
 

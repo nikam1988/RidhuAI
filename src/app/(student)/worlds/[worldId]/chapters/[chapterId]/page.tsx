@@ -92,7 +92,7 @@ export default function TopicSelectionScreen({ params }: { params: { worldId: st
               🤖 AI Suggestion
             </h3>
             <p className="text-sm font-bold text-white/90 mb-4 leading-relaxed">
-              Before learning Carry Over, let's quickly revise the ones place addition to make you super fast!
+              Before learning Carry Over, let&apos;s quickly revise the ones place addition to make you super fast!
             </p>
             <button className="w-full bg-white text-secondary-sky font-heading font-bold text-lg py-3 rounded-full hover:scale-105 active:scale-95 transition-all shadow-lg">
               Start 3-Min Quiz

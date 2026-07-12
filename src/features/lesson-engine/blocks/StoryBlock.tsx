@@ -26,7 +26,7 @@ export function StoryBlock({ data, onComplete, isActive }: BlockProps<StoryBlock
           <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 relative">
             <div className="absolute -left-3 top-8 w-6 h-6 bg-slate-50 border-l border-b border-slate-100 rotate-45 hidden md:block"></div>
             <p className="font-body font-bold text-lg md:text-xl text-slate-700 leading-relaxed">
-              "{data.dialogue}"
+              &quot;{data.dialogue}&quot;
             </p>
           </div>
 

@@ -2,6 +2,7 @@
 
 export type BlockType = 'story' | 'fun_fact' | 'mini_quiz' | 'text_explanation' | 'reward';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface BaseLessonBlock<T = any> {
   id: string;
   type: BlockType;

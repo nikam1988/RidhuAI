@@ -44,7 +44,7 @@ export default function CreateChildProfileScreen() {
             Add a Student
           </h1>
           <p className="font-body font-bold text-text-secondary">
-            Let's personalize the magic! ✨
+            Let&apos;s personalize the magic! ✨
           </p>
         </div>
 
@@ -54,7 +54,7 @@ export default function CreateChildProfileScreen() {
               <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={24} />
               <input 
                 type="text" 
-                placeholder="Child's First Name" 
+                placeholder="Child&apos;s First Name" 
                 className="w-full h-16 pl-14 pr-4 rounded-[24px] bg-slate-50 border-4 border-border-soft focus:border-secondary-sky focus:bg-white outline-none font-body font-bold text-lg text-text-primary transition-all"
                 required
               />

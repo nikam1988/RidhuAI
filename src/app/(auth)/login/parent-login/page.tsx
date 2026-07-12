@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { AnimatedBackground } from "@/features/auth/components/AnimatedBackground"
 import { ArrowLeft, Mail, Lock } from "lucide-react"
 import { Button } from "@/components/ui/Button"
+import Image from "next/image"
 
 export default function ParentLoginScreen() {
   const router = useRouter()
@@ -35,7 +36,7 @@ export default function ParentLoginScreen() {
             Parent Login
           </h1>
           <p className="font-body font-bold text-text-secondary">
-            Welcome back! Let's check progress.
+            Welcome back! Let&apos;s check progress.
           </p>
         </div>
 
@@ -84,12 +85,12 @@ export default function ParentLoginScreen() {
             size="lg"
             className="w-full text-lg flex gap-3"
           >
-            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-6 h-6" />
+            <Image src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" width={24} height={24} className="w-6 h-6" />
             Continue with Google
           </Button>
 
           <div className="text-center mt-6">
-            <span className="text-text-secondary font-bold">New to KidSpark? </span>
+            <span className="text-text-secondary font-bold">New to Ridhvi AI? </span>
             <button type="button" onClick={() => router.push('/auth/parent-signup')} className="text-primary-purple font-extrabold hover:underline">
               Create Account
             </button>

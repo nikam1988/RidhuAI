@@ -80,7 +80,7 @@ export default function CongratulationsScreen() {
           className="w-full text-xl animate-bounce"
           onClick={() => router.push('/dashboard')}
         >
-          Let's Play!
+          Let&apos;s Play!
         </Button>
       </motion.div>
     </div>
